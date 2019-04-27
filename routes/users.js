@@ -43,19 +43,8 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
-router.use(authenticationMiddleware);
 
-router.get('/profile', (req, res) => {
-  res.send(req.user);
-})
 
-// router.post('/add', async (req, res, next) => {
-//   const product = req.body;
-//   const newproduct = new PRODUCT(product)
-//   await newproduct.save();
-//   res.save(newproduct);
-
-// })
 
 
 

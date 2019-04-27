@@ -22,7 +22,7 @@ app.use('/products', productsRouter);
 
 
 // global error handler
-//404
+
 app.use((err, req, res, next) => {
     console.error(err);
     res.status(err.status || 500);

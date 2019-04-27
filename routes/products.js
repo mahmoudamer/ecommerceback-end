@@ -25,6 +25,8 @@ router.post("/", (req, res, next) => {
   });
 });
 
+router.use(authenticationMiddleware);
+
 router.get("/", (req, res, next) => {
   Product.find({}, function (err, products) {
     if (err) return next(createError(400, err));
@@ -33,7 +35,6 @@ router.get("/", (req, res, next) => {
 });
 
 
-router.use(authenticationMiddleware);
 
 router.delete("/:productId", (req, res, next) => {
   Product.findById(req.params.productId, (err, product) => {
@@ -46,17 +47,6 @@ router.delete("/:productId", (req, res, next) => {
 });
 
 
-router.patch("/:productId", async (req, res, next) => {
-  try {
-    let productUpdated = await Product.findByIdAndUpdate(
-      req.params.productId,
-      req.body
-    );
-    res.send(productUpdated);
-  } catch (err) {
-    next(createError(400, err));
-  }
-});
 
 router.get("/:productId", (req, res, next) => {
   Product.findOne({ _id: req.params.productId }, (err, product) => {
