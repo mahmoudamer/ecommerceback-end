@@ -1,6 +1,8 @@
 const express = require('express');
 const createError = require('http-errors');
 const router = express.Router();
+const PRODUCT = require("../models/product");
+
 
 const authenticationMiddleware = require('./../middlewares/authentication')
 
@@ -47,11 +49,13 @@ router.get('/profile', (req, res) => {
   res.send(req.user);
 })
 
-router.post('/add', async (req, res, next) => {
-  const product = res.body;
-  await product.save()
+// router.post('/add', async (req, res, next) => {
+//   const product = req.body;
+//   const newproduct = new PRODUCT(product)
+//   await newproduct.save();
+//   res.save(newproduct);
 
-})
+// })
 
 
 

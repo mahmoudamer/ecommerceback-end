@@ -3,14 +3,21 @@ const router = express.Router();
 const createError = require("http-errors");
 const Product = require("../models/product");
 
+const authenticationMiddleware = require('./../middlewares/authentication')
+
+
 router.post("/", (req, res, next) => {
   const {
     name,
-    price
+    price,
+    image,
+    description
   } = req.body;
   const product = new Product({
     name,
-    price
+    price,
+    image,
+    description
   });
   product.save(err => {
     if (err) return next(createError(400, err));
@@ -25,6 +32,9 @@ router.get("/", (req, res, next) => {
   });
 });
 
+
+router.use(authenticationMiddleware);
+
 router.delete("/:productId", (req, res, next) => {
   Product.findById(req.params.productId, (err, product) => {
     if (err) return next(createError(400, err));
@@ -34,6 +44,7 @@ router.delete("/:productId", (req, res, next) => {
     res.send(product);
   });
 });
+
 
 router.patch("/:productId", async (req, res, next) => {
   try {
